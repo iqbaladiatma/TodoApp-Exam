@@ -35,7 +35,9 @@ class TaskController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
+            'title' => 'required|max:255',
+            'status' => 'required|in:pending,completed',
+            'description' => 'required|min:10',
         ]);
 
         if ($validator->fails()) {
