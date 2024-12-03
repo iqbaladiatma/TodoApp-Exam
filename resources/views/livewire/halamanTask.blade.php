@@ -56,6 +56,7 @@
                   <th>Title Todo</th>
                   <th>Deskripsi</th>
                   <th>Status</th>
+                  <th>Last Updated</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -65,7 +66,19 @@
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $task->title }}</td>
                   <td>{{ $task->description }}</td>
-                  <td>{{ $task->status }}</td>
+                  <td>
+                    @switch($task->status)
+                    @case('pending')
+                    <span class="badge bg-warning">Pending</span>
+                    @break
+                    @case('in_progress')
+                    <span class="badge bg-info">In Progress</span>
+                    @break
+                    @case('completed')
+                    <span class="badge bg-success">Completed</span>
+                    @break
+                    @endswitch
+                  </td>
                   <td>{{ $task->updated_at }}</td>
                   <td>
                     <button class="btn btn-warning" wire:click="editTask({{ $task->id }})">Edit</button>

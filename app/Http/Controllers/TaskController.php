@@ -43,7 +43,8 @@ class TaskController extends Controller
         }
         $todo = Task::where('id', $id)->first();
         $todo->title = $request->get('title');
-        $todo->is_completed = $request->get('is_completed');
+        $todo->status = $request->get('status');
+        $todo->description = $request->get('description');
         $todo->updated_at = now();
         $todo->save();
 

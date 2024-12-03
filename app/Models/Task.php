@@ -22,9 +22,9 @@ class Task extends Model
     public function scopeFilter(Builder $query, array $filters): void
     {
         if (isset($filters['search']) && $filters['search'] !== '') {
-            $query->where(function($query) use ($filters) {
+            $query->where(function ($query) use ($filters) {
                 $query->where('title', 'like', '%' . $filters['search'] . '%')
-                      ->orWhere('description', 'like', '%' . $filters['search'] . '%');
+                    ->orWhere('description', 'like', '%' . $filters['search'] . '%');
             });
         }
     }
