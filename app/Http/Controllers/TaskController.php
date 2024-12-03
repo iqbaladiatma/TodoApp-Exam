@@ -8,14 +8,6 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
-    public $pillihanMenu;
-    public $buku_id;
-    public $member_id;
-    public $pinjam_edit;
-    public $cari;
-    public $member_nama;
-    public $semuabuku;
-    //
     public function index()
     {
         $tasks = Task::all();
@@ -38,7 +30,7 @@ class TaskController extends Controller
     public function edit(string $id)
     {
         $task = Task::where('id', $id)->first();
-        return view('task.edit_todo');
+        return view('task.edit_todo', compact('task'));
     }
     public function update(Request $request, string $id)
     {
@@ -49,10 +41,10 @@ class TaskController extends Controller
         if ($validator->fails()) {
             return redirect()->route('task.edit_todo', ['task' => $id])->withErrors($validator);
         }
-
         $todo = Task::where('id', $id)->first();
         $todo->title = $request->get('title');
         $todo->is_completed = $request->get('is_completed');
+        $todo->updated_at = now();
         $todo->save();
 
         return redirect()->route('task.todo')->with('pesan', 'Berhasil Mengupdate');

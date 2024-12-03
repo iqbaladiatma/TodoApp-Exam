@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class halTask extends Component
 {
@@ -12,6 +14,7 @@ class halTask extends Component
   public $title;
   public $description;
   public $status = 'pending';
+  public $search = '';
 
   public function tambahTask()
   {
@@ -48,7 +51,7 @@ class halTask extends Component
   public function render()
   {
     return view('livewire.halamanTask')->with([
-      'semuatask' => Task::all(),
+      'semuatask' => Task::filter(['search' => $this->search])->get(),
     ]);
   }
 }
